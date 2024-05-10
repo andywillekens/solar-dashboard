@@ -6,6 +6,7 @@ export default async (url: string) => {
   const page = await browser.newPage();
 
   await page.goto(url);
+  console.log(page);
 
   const solarData = await page.waitForResponse(
     (response) =>
@@ -13,7 +14,7 @@ export default async (url: string) => {
         "https://apsystemsema.com/ema/ajax/getDashboardApiAjax/getDashboardProductionInfoAjax" &&
       response.status() === 200
   );
-
+  console.log("Stil running?");
   console.log(solarData);
 
   const jsonSolarData = await solarData.json();
