@@ -1,6 +1,7 @@
 import puppeteer from "puppeteer";
 
 export default async (url: string) => {
+  console.log("Runnint puppeteer");
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
