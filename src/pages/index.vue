@@ -39,23 +39,17 @@ const data = ref<Data>({
 const fetchData = async () => {
   fetchingData.value = true;
 
-  const apSystems = await useFetch("/api/apsystems/data");
-  const apRawCurrentWattage = apSystems.data.value
-    ? Number(apSystems.data.value.lastPower)
-    : 0;
-  const apRawTodayWattage = apSystems.data.value
-    ? parseFloat(apSystems.data.value.today)
-    : 0;
+  const apSystems = await $fetch("/api/apsystems/data");
+  const apRawCurrentWattage = apSystems ? Number(apSystems.lastPower) : 0;
+  const apRawTodayWattage = apSystems ? parseFloat(apSystems.today) : 0;
 
   data.value.tiles.currentWattageYield.value = apRawCurrentWattage;
   data.value.tiles.todayKwhYielded.value = Number(apRawTodayWattage.toFixed(2));
 
-  const toon = await useFetch("/api/toon/currentUsage");
-  const toonRawCurrentWattage = toon.data.value
-    ? toon.data.value.powerUsage.value
-    : 0;
-  const toonRawTodayWattage = toon.data.value
-    ? Number((toon.data.value.powerUsage.dayLowUsage / 1000).toFixed(2))
+  const toon = await $fetch("/api/toon/currentUsage");
+  const toonRawCurrentWattage = toon ? toon.powerUsage.value : 0;
+  const toonRawTodayWattage = toon
+    ? Number((toon.powerUsage.dayLowUsage / 1000).toFixed(2))
     : 0;
 
   data.value.tiles.currentWattageConsumption.value = toonRawCurrentWattage;
@@ -63,8 +57,8 @@ const fetchData = async () => {
   data.value.tiles.todayKwhConsumed.value = toonRawTodayWattage;
 
   // Remove this later
-  data.value.toon = toon.data.value;
-  data.value.apSystems = apSystems.data.value;
+  data.value.toon = toon;
+  data.value.apSystems = apSystems;
 
   fetchingData.value = false;
 };
