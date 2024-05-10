@@ -41,10 +41,10 @@ const fetchData = async () => {
 
   const apSystems = await useFetch("/api/apsystems/data");
   const apRawCurrentWattage = apSystems.data.value
-    ? Math.round(Number(apSystems.data.value.lastPower))
+    ? Number(apSystems.data.value.lastPower)
     : 0;
   const apRawTodayWattage = apSystems.data.value
-    ? Number(parseFloat(apSystems.data.value.today))
+    ? parseFloat(apSystems.data.value.today)
     : 0;
 
   data.value.tiles.currentWattageYield.value = apRawCurrentWattage;
