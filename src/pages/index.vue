@@ -68,10 +68,10 @@ const triggerFetchData = () => {
   fetchData();
 };
 
-// Update each 5 minutes
+// Update each 3 minutes
 setInterval(() => {
   fetchData();
-}, 60000);
+}, 60000 * 3);
 </script>
 <template>
   <header class="w-full flex justify-center">
