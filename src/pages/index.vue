@@ -74,9 +74,20 @@ setInterval(() => {
 }, 60000 * 3);
 </script>
 <template>
-  <header class="w-full flex justify-center">
+  <header class="w-full flex justify-center sticky top-0 z-20">
+    <div
+      v-if="fetchingData"
+      class="flex gap-2 items-center p-2 absolute left-0 top-0 z-50"
+    >
+      <Icon
+        name="svg-spinners:90-ring-with-bg"
+        size="24"
+        class="text-gray-600"
+      />
+      <p class="text-gray-600 text-md">Data ophalen..</p>
+    </div>
     <button
-      class="bg-blue-500 text-white py-2 px-4 rounded-b-xl cursor-pointer hover:bg-blue-600 hover:pt-6 active:pt-8 absolute z-20 transition-all duration-200"
+      class="bg-blue-500 text-white py-2 px-4 rounded-b-xl cursor-pointer hover:bg-blue-600 hover:pt-6 active:pt-8 transition-all duration-200"
       @click="triggerFetchData"
       :disabled="fetchingData"
       :class="fetchingData && '-translate-y-12'"
@@ -85,14 +96,6 @@ setInterval(() => {
     </button>
   </header>
   <main class="w-screen h-screen">
-    <div v-if="fetchingData" class="flex gap-2 items-center p-2 fixed z-50">
-      <Icon
-        name="svg-spinners:90-ring-with-bg"
-        size="24"
-        class="text-gray-600"
-      />
-      <p class="text-gray-600 text-md">Data ophalen..</p>
-    </div>
     <div class="w-screen sm:h-screen justify-center gap-6 flex flex-col p-4">
       <div
         class="w-full sm:min-w-[620px] sm:max-w-[980px] gap-6 grid grid-cols-1 sm:grid-cols-2 self-center justify-center relative"
