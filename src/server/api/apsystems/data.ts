@@ -2,7 +2,7 @@ import apScraper from "~/utils/apScraper";
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
   const userId = config.apUserId;
-
+  console.log(userId);
   try {
     const scrapedData = await apScraper(
       `https://apsystemsema.com/ema/intoDemoUser.action?id=${userId}&locale=en_US`
