@@ -13,6 +13,8 @@ export default async (url: string) => {
       response.status() === 200
   );
 
+  console.log(solarData);
+
   const jsonSolarData = await solarData.json();
   await browser.close();
   return jsonSolarData;
