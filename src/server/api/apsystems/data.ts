@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
       lifetime: 0,
       ecuSign: "0/216000310606YYYYYYYY",
       meterFlag: 0,
+      error: error,
     };
   }
 });
