@@ -87,7 +87,7 @@ setInterval(() => {
       <p class="text-gray-600 text-md">Data ophalen..</p>
     </div>
     <button
-      class="bg-blue-500 text-white py-2 px-4 rounded-b-xl cursor-pointer hover:bg-blue-600 hover:pt-6 transition-all duration-200 absolute"
+      class="bg-blue-500 text-white py-2 px-4 rounded-b-xl cursor-pointer hover:bg-blue-600 transition-all duration-200 absolute"
       @click="triggerFetchData"
       :disabled="fetchingData"
       :class="fetchingData && '-translate-y-16'"
