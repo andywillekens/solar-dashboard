@@ -34,7 +34,7 @@ const chartOptions = {
           offsetY: 76,
           fontSize: "22px",
           color: undefined,
-          formatter: function (val: any) {
+          formatter: function () {
             return `${props.inputData} ${props.dataType}`;
           },
         },
@@ -61,9 +61,9 @@ const chartOptions = {
 </script>
 <template>
   <apexchart
+    class="w-[500px]"
     ref="realtimeChart"
     type="radialBar"
-    height="250"
     :options="chartOptions"
     :series="[scaleData]"
   />

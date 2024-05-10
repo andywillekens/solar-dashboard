@@ -39,13 +39,6 @@ const data = ref<Data>({
 const fetchData = async () => {
   fetchingData.value = true;
 
-  const apSystems = await $fetch("/api/apsystems/data");
-  const apRawCurrentWattage = apSystems ? Number(apSystems.lastPower) : 0;
-  const apRawTodayWattage = apSystems ? parseFloat(apSystems.today) : 0;
-
-  data.value.tiles.currentWattageYield.value = apRawCurrentWattage;
-  data.value.tiles.todayKwhYielded.value = Number(apRawTodayWattage.toFixed(2));
-
   const toon = await $fetch("/api/toon/currentUsage");
   const toonRawCurrentWattage = toon ? toon.powerUsage.value : 0;
   const toonRawTodayWattage = toon
@@ -53,8 +46,14 @@ const fetchData = async () => {
     : 0;
 
   data.value.tiles.currentWattageConsumption.value = toonRawCurrentWattage;
-
   data.value.tiles.todayKwhConsumed.value = toonRawTodayWattage;
+
+  const apSystems = await $fetch("/api/apsystems/data");
+  const apRawCurrentWattage = apSystems ? Number(apSystems.lastPower) : 0;
+  const apRawTodayWattage = apSystems ? parseFloat(apSystems.today) : 0;
+
+  data.value.tiles.currentWattageYield.value = apRawCurrentWattage;
+  data.value.tiles.todayKwhYielded.value = Number(apRawTodayWattage.toFixed(2));
 
   // Remove this later
   data.value.toon = toon;
@@ -86,21 +85,21 @@ setInterval(() => {
     </button>
   </header>
   <main class="w-screen h-screen">
-    <div v-if="fetchingData" class="flex gap-2 items-center p-2 fixed">
+    <div v-if="fetchingData" class="flex gap-2 items-center p-2 fixed z-50">
       <Icon
         name="svg-spinners:90-ring-with-bg"
         size="24"
-        class="text-blue-400"
+        class="text-gray-600"
       />
-      <p class="text-blue-400 text-md">Data ophalen..</p>
+      <p class="text-gray-600 text-md">Data ophalen..</p>
     </div>
-    <div class="w-screen h-screen justify-center gap-6 flex flex-col">
+    <div class="w-screen sm:h-screen justify-center gap-6 flex flex-col p-4">
       <div
-        class="w-[620px] gap-6 grid grid-cols-2 self-center justify-center relative"
+        class="w-full sm:min-w-[620px] sm:max-w-[980px] gap-6 grid grid-cols-1 sm:grid-cols-2 self-center justify-center relative"
       >
         <div
           v-for="tile in data.tiles"
-          class="flex-shrink-0 bg-gray-50 rounded-3xl relative overflow-hidden"
+          class="flex justify-center sm:flex-shrink-0 bg-gray-50 rounded-3xl relative overflow-hidden"
         >
           <Icon
             :name="
