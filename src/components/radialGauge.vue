@@ -15,7 +15,7 @@ const gaugeColors =
 
 const chartOptions = {
   chart: {
-    height: 250,
+    height: 350,
     type: "radialBar",
     offsetY: 0,
   },
@@ -61,10 +61,10 @@ const chartOptions = {
 </script>
 <template>
   <apexchart
+    class="w-[500px]"
     ref="realtimeChart"
     type="radialBar"
     :options="chartOptions"
     :series="[scaleData]"
-    size="400"
   />
 </template>
