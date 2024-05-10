@@ -5,6 +5,7 @@ interface Props {
   dataType: "Watt" | "kWh";
   label: string;
   tileType: "input" | "output";
+  fetchingData: boolean;
 }
 const props = defineProps<Props>();
 
@@ -60,6 +61,13 @@ const chartOptions = {
 };
 </script>
 <template>
+  <div
+    v-if="fetchingData"
+    class="w-full h-full bg-white/80 flex flex-col justify-center items-center absolute z-20"
+  >
+    <Icon name="svg-spinners:90-ring-with-bg" size="32" class="text-gray-600" />
+    <p class="text-gray-600 text-md">Data ophalen..</p>
+  </div>
   <apexchart
     class="w-[500px]"
     ref="realtimeChart"

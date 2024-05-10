@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const fetchingData = ref(false);
+const fetchingToonData = ref(false);
+const fetchingApData = ref(false);
 
 const data = ref<Data>({
   tiles: {
@@ -38,15 +40,20 @@ const data = ref<Data>({
 
 const fetchData = async () => {
   fetchingData.value = true;
+  fetchingToonData.value = true;
+  fetchingApData.value = true;
 
   const toon = await $fetch("/api/toon/currentUsage");
   const toonRawCurrentWattage = toon ? toon.powerUsage.value : 0;
-  const toonRawTodayWattage = toon
-    ? Number((toon.powerUsage.dayLowUsage / 1000).toFixed(2))
-    : 0;
+  const toonRawTodayLowWattage = toon ? toon.powerUsage.dayLowUsage / 1000 : 0;
+  const toonRawTodayWattage = toon ? toon.powerUsage.dayUsage / 1000 : 0;
+  const toonRawTodayTotalWattage = toonRawTodayLowWattage + toonRawTodayWattage;
 
   data.value.tiles.currentWattageConsumption.value = toonRawCurrentWattage;
-  data.value.tiles.todayKwhConsumed.value = toonRawTodayWattage;
+  data.value.tiles.todayKwhConsumed.value = Number(
+    toonRawTodayTotalWattage.toFixed(2)
+  );
+  fetchingToonData.value = false;
 
   const apSystems = await $fetch("/api/apsystems/data");
   const apRawCurrentWattage = apSystems ? Number(apSystems.lastPower) : 0;
@@ -54,6 +61,7 @@ const fetchData = async () => {
 
   data.value.tiles.currentWattageYield.value = apRawCurrentWattage;
   data.value.tiles.todayKwhYielded.value = Number(apRawTodayWattage.toFixed(2));
+  fetchingApData.value = false;
 
   // Remove this later
   data.value.toon = toon;
@@ -71,21 +79,10 @@ const triggerFetchData = () => {
 // Update each 3 minutes
 setInterval(() => {
   fetchData();
-}, 60000 * 3);
+}, 60000 * 1);
 </script>
 <template>
   <header class="w-full flex justify-center sticky top-0 z-20">
-    <div
-      v-if="fetchingData"
-      class="flex gap-2 items-center p-2 absolute left-0 top-0 z-50"
-    >
-      <Icon
-        name="svg-spinners:90-ring-with-bg"
-        size="24"
-        class="text-gray-600"
-      />
-      <p class="text-gray-600 text-md">Data ophalen..</p>
-    </div>
     <button
       class="bg-blue-500 text-white py-2 px-4 rounded-b-xl cursor-pointer hover:bg-blue-600 transition-all duration-200 absolute"
       @click="triggerFetchData"
@@ -117,6 +114,9 @@ setInterval(() => {
             :dataType="tile.dataType"
             :label="tile.label"
             :tileType="tile.tileType"
+            :fetchingData="
+              tile.tileType === 'input' ? fetchingApData : fetchingToonData
+            "
           />
         </div>
       </div>
