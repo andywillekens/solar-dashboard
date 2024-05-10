@@ -9,10 +9,10 @@ export default defineEventHandler(async (event) => {
     return {
       data: {
         duration: 0,
-        lastPower: "0",
-        today: "0",
-        co2: "0",
-        lifetime: "0",
+        lastPower: 0,
+        today: 0,
+        co2: 0,
+        lifetime: 0,
         ecuSign: "0/216000310606YYYYYYYY",
         meterFlag: 0,
       },
