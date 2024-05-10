@@ -1,4 +1,4 @@
-import apScraper from "~/utils/apScraper";
+import apScraper from "~~/apScraper";
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
   const userId = config.apUserId;
