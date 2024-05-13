@@ -41,7 +41,7 @@ const chartOptions = {
       },
       dataLabels: {
         name: {
-          fontSize: "16px",
+          fontSize: "14px",
           color: "#484848",
           offsetY: 100,
         },
@@ -74,6 +74,7 @@ const chartOptions = {
   labels: [props.label],
 };
 </script>
+Vandaag opgebracht Opbrengst
 <template>
   <div
     v-if="fetchingData"
