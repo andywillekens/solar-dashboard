@@ -43,10 +43,10 @@ const chartOptions = {
         name: {
           fontSize: "16px",
           color: "#484848",
-          offsetY: 120,
+          offsetY: 100,
         },
         value: {
-          offsetY: 76,
+          offsetY: 62,
           fontSize: "22px",
           color: "#ffffff",
           formatter: function () {
