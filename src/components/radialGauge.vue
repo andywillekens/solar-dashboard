@@ -48,7 +48,7 @@ const chartOptions = {
         value: {
           offsetY: 76,
           fontSize: "22px",
-          color: "#f0f0f0",
+          color: "#ffffff",
           formatter: function () {
             return `${props.inputData} ${props.dataType}`;
           },
