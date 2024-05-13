@@ -14,7 +14,9 @@ export default defineNuxtConfig({
   ],
   ssr: false,
   devtools: { enabled: true },
-
+  tailwindcss: {
+    cssPath: "~/assets/styles/main.scss",
+  },
   runtimeConfig: {
     apiUrl: process.env.API_URL,
     toonAccessToken: process.env.TOON_ACCESS_TOKEN,

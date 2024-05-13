@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply h-screen bg-black;
+
+    #__nuxt {
+      @apply min-h-screen flex flex-row;
+    }
+  }
+}

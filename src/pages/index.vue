@@ -82,31 +82,33 @@ setInterval(() => {
 }, 60000 * 3);
 </script>
 <template>
-  <header class="w-full flex justify-center sticky top-0 z-20">
+  <header class="w-full flex justify-center absolute top-0 z-20">
     <button
       class="bg-blue-500 text-white py-2 px-4 rounded-b-xl cursor-pointer hover:bg-blue-600 transition-all duration-200 absolute"
       @click="triggerFetchData"
       :disabled="fetchingData"
       :class="fetchingData && '-translate-y-16'"
     >
-      Verversen
+      <Icon name="ph:arrow-clockwise" />
     </button>
   </header>
   <main class="w-screen h-screen">
-    <div class="w-screen sm:h-screen justify-center gap-6 flex flex-col p-4">
+    <div
+      class="w-screen sm:h-screen justify-center gap-6 flex flex-col px-4 py-8 sm:py-4"
+    >
       <div
-        class="w-full sm:min-w-[620px] sm:max-w-[980px] gap-6 grid grid-cols-1 sm:grid-cols-2 self-center justify-center relative"
+        class="w-full sm:min-w-[620px] sm:max-w-[980px] gap-6 grid grid-cols-2 self-center justify-center relative"
       >
         <div
           v-for="tile in data.tiles"
-          class="flex justify-center sm:flex-shrink-0 bg-gray-50 rounded-3xl relative overflow-hidden"
+          class="flex justify-center sm:flex-shrink-0 bg-white/10 rounded-3xl relative overflow-hidden"
         >
           <Icon
             :name="
               tile.tileType === 'input' ? 'ph:solar-panel' : 'ph:plug-charging'
             "
-            size="48"
-            class="text-gray-300 absolute top-2 right-2"
+            size="36"
+            class="text-white/20 absolute top-2 right-2 text-sm sm:text-md"
           />
           <RadialGauge
             :inputData="tile.value"

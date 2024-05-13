@@ -14,9 +14,21 @@ const gaugeColors =
     ? ["#00ff9f", "#00ff9f", "#00ff9f"]
     : ["#ff8f00", "#ff8f00", "#ff8f00"];
 
+const gaugeHeight = ref(350);
+
+const responsiveHeight = () => {
+  if (window.matchMedia("(max-width: 639px)").matches) {
+    gaugeHeight.value = 225;
+  } else {
+    gaugeHeight.value = 350;
+  }
+};
+
+responsiveHeight();
+
 const chartOptions = {
   chart: {
-    height: 350,
+    height: gaugeHeight.value,
     type: "radialBar",
     offsetY: 0,
   },
@@ -24,17 +36,19 @@ const chartOptions = {
     radialBar: {
       startAngle: -135,
       endAngle: 135,
-
+      track: {
+        background: "#484848",
+      },
       dataLabels: {
         name: {
           fontSize: "16px",
-          color: "#909090",
+          color: "#484848",
           offsetY: 120,
         },
         value: {
           offsetY: 76,
           fontSize: "22px",
-          color: undefined,
+          color: "#f0f0f0",
           formatter: function () {
             return `${props.inputData} ${props.dataType}`;
           },
@@ -63,16 +77,16 @@ const chartOptions = {
 <template>
   <div
     v-if="fetchingData"
-    class="w-full h-full bg-white/80 flex flex-col justify-center items-center absolute z-20"
+    class="w-full h-full bg-black/50 flex flex-col justify-center items-center absolute z-20"
   >
-    <Icon name="svg-spinners:90-ring-with-bg" size="32" class="text-gray-600" />
-    <p class="text-gray-600 text-md">Data ophalen..</p>
+    <Icon name="svg-spinners:90-ring-with-bg" size="32" class="text-white/30" />
+    <p class="text-white/30 text-md">Data ophalen..</p>
   </div>
   <apexchart
-    class="w-[500px]"
     ref="realtimeChart"
     type="radialBar"
     :options="chartOptions"
     :series="[scaleData]"
+    :height="chartOptions.chart.height"
   />
 </template>
