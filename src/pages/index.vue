@@ -44,9 +44,9 @@ const fetchData = async () => {
   fetchingApData.value = true;
 
   const toon = await $fetch("/api/toon/currentUsage");
-  const toonRawCurrentWattage = toon ? toon.powerUsage.value : 0;
-  const toonRawTodayLowWattage = toon ? toon.powerUsage.dayLowUsage / 1000 : 0;
-  const toonRawTodayWattage = toon ? toon.powerUsage.dayUsage / 1000 : 0;
+  const toonRawCurrentWattage = toon ? toon.value : 0;
+  const toonRawTodayLowWattage = toon ? toon.dayLowUsage / 1000 : 0;
+  const toonRawTodayWattage = toon ? toon.dayUsage / 1000 : 0;
   const toonRawTodayTotalWattage = toonRawTodayLowWattage + toonRawTodayWattage;
 
   data.value.tiles.currentWattageConsumption.value = toonRawCurrentWattage;
