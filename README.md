@@ -1,6 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Solar Dashboard
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+I wanted to see my current solar data and power usage in one small dashboard. 
+For the power usage I used the [Toon API](https://developer.toon.eu/).
+
+APsystems does not have an API available, but it does have the option to enable a custom dashboard via a public facing webpage. 
+This page is scraped by puppeteer to retrieve the data from my solar panels.
 
 ## Setup
 
@@ -55,21 +59,3 @@ yarn build
 # bun
 bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
